@@ -27,9 +27,9 @@ public class Cutscenes {
     // Declare function playCutScene, which takes a String to play a drawn-out cutscene.
     public void playCutscene(String cutScene) {
         switch (cutScene) {
+
             // "INTRO": Introduces the player to the story's background.
             case "INTRO" -> print.dramaPrint("\n}American Revolutionary War. September 15th, 1776.}\n\nGeneral George Washington has ordered a retreat after losing thousands of American soldiers in the Battle of Long Island.} This loss allows the British to begin its invasion of New York.} Their warships have already created a massive blockade to intercept our naval supply lines.} The British Royal Navy holds superiority in New York Harbor.}\n\nWithout the resupply of manpower or rations, the Continental Army's defensive line in New York grows weaker.} In an effort to make a last stand, the Continental Navy will send out its remaining battalion of warships and frigates under your control, Captain.} These ships are short on rations and ammunition, meaning our counterattack will be difficult.}\n\nIf the Navy can take back superiority of New York's waters, the Army can easily counter the British offensive and reclaim New York for good.\n}");
-
 
             // "WASHINGTON-INTRO": Washington is introduced by the narrator and talks to the player.
             case "WASHINGTON-INTRO" -> {
@@ -82,9 +82,10 @@ public class Cutscenes {
             // "LONG-DIFFICULTY": The normal presentation of difficulty.
             case "LONG-DIFFICULTY" -> print.dramaPrint("SELECT A CAMPAIGN TO FIGHT IN:\n[NORMAL]\nOn a few flanks, the British have left their guard down. We can seize some old ports and open up supply lines there. This way, we can support up to 2-5 shots with every barrage.\n\n[HARD]\nThe British have the upper hand on us! Military provisions can barely slip through their naval blockades and we have no more avenues to resupply our troops and ships. This leaves us with 1-3 shots every barrage.\n\n[REALISTIC]\nEvery soldier hangs on to the skin of their teeth. The British have completely seized our supply lines. Our men fight each other for rations day and night. We can only manage up to 3 shots per barrage, and there's a chance we never get to fire a single round due to infighting and interdiction on our supply lines.\n\n[INSTRUCTIONS] Get instructions on how the game works.\n");
 
-
             // "SHORT-DIFFICULTY": A shortened version of the difficulty options.
             case "SHORT-DIFFICULTY" -> System.out.println("SELECT A CAMPAIGN TO FIGHT IN:\n[NORMAL]\n2-5 shots with every barrage.\n\n[HARD]\n1-3 shots every barrage.\n\n[REALISTIC]\nWe can only manage up to 3 shots per barrage, some barrages no shots.\n\n[INSTRUCTIONS] Get instructions on how the game works.");
+
+            // "INSTRUCTIONS": Detailed instructions on how Seas of Attrition works.
             case "INSTRUCTIONS" -> System.out.println("Seas of Attrition is a lot like Battleship, but as you can infer, you are at a disadvantage. After placing your ships on the map, the game will go into turn-based combat.\n\nIn the first phase, you will be firing at the enemy first. You get a random number of shots depending on the difficulty you selected and you fire each shot one by one. After you fire all your shots, the enemy shoots exactly 5 shots back at your ships. This combat phase repeats until:\na) You run out of ships.\nb) The enemy has no more ships remaining.\nc) You have less than three ships or 15 rounds have passed, in which case the AI finishes you off.\n\nThis game is meant to be unfair; you are after all at a strategic disadvantage. Accuracy is of the essence. Develop a stratagem to find the enemy ships. Plead that Fortuna is on your side.");
         }
     }
