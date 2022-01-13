@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * Hosts the state and behavior for the artificial intelligence for Seas of Attrition.
  * @author Tuany Van
- * @version 1.0, 10/26/2021
+ * @version 1.0, 10/26/21
  */
 
 public class ComputerPlayer {
