@@ -230,7 +230,6 @@ public class ComputerPlayer {
                     }
 
                     // Add the shot to the decisions list and increment the shot number.
-                    
                     hasFoundValidDirection = true;
                     decision[shotNumber] = shotCoordinates;
                     shotNumber++;
@@ -248,7 +247,6 @@ public class ComputerPlayer {
                 if(shotResult == 0) {
                     // If shot was already taken, do not add it to the decision.
                     if(isDuplicateCoordinate(decision, shotCoordinates)) {
-                        
                         continue;
                     }
                     decision[shotNumber] = shotCoordinates;
@@ -260,7 +258,6 @@ public class ComputerPlayer {
                     
                     // If the shot was already taken, do not add it to the decision.
                     if(isDuplicateCoordinate(decision, shotCoordinates)) {
-                        
                         continue;
                     }
                     decision[shotNumber] = shotCoordinates;
@@ -276,7 +273,6 @@ public class ComputerPlayer {
                 // Otherwise, if the randomly chosen coordinate was already fired upon (2), then do nothing, which continues the loop.
             }
         }
-
         // Return the AI decision.
         return decision;
     }
