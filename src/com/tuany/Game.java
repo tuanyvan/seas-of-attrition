@@ -46,7 +46,7 @@ public class Game {
     private Map playerShotTrackingMap;
     private Map computerMap;
 
-    // Declare mapCreator, which creates the playerMap, computerMap and playerShotTrackingMap as 2D arrays, and then autofill the computerMap.
+    // Declare mapCreator, which creates the playerMap, computerMap and playerShotTrackingMap as Map objects, and then autofill the computerMap.
     private void mapCreator() {
 
         // Initialize the maps for the player, AI, and player shot tracking map.
@@ -171,7 +171,7 @@ public class Game {
         String shipType = ""; // String updated in switch case to show user what ship is expected to be placed.
         int shipLength = 6; // Integer that decrements with every ship placement, dictates what length ship is expected.
 
-        System.out.println(playerMap.toString());
+        System.out.println(playerMap.toString(false));
 
         while(shipLength >= 3) {
             // Store the relevant ship type in shipType.
@@ -317,7 +317,7 @@ public class Game {
                 wasPlacementValid = true; // Everything went well.
 
             } while (!wasPlacementValid);
-            System.out.println(playerMap.toString());
+            System.out.println(playerMap.toString(false));
             shipLength--;
         }
 
@@ -329,7 +329,7 @@ public class Game {
         // Start up the Seas of Attrition AI, who will be passed the player map for their shot validation.
         int[][] computerShotCoordinatesArray;
         int computerShotResult;
-        ComputerPlayer ai = new ComputerPlayer(playerMap.getMap(), playerMap.getMap().length - 1, playerMap.getMap()[0].length, roundCount);
+        ComputerPlayer ai = new ComputerPlayer(playerMap.getMap(), playerMap.getMap().length - 1, playerMap.getMap()[0].length - 1, roundCount);
 
         // Initialize variables for the player attrition system.
         int shotsThisRound; // Shots the player gets for their round.
@@ -349,9 +349,10 @@ public class Game {
 
             // Print the map and round number.
             print.dramaPrint("===== HOUR " + roundCount + " =====");
-            System.out.println(playerShotTrackingMap.toString());
+            System.out.println(playerShotTrackingMap.toString(true));
 
             // If the player, who is playing on realistic, has no shells to fire this round, let them know.
+            // Otherwise, print the normal ammunition count notice.
             if (shotsThisRound == 0) {
                 cutscene.playCutscene(Random.getRandomInt(21, 30));
             } else {
@@ -387,7 +388,7 @@ public class Game {
                     computerShipsRemaining--;
                     shotsThisRound--;
                     playerShotTrackingMap.setMapSpace(coordinateLetter, coordinateNumber, 1);
-                    System.out.println(playerShotTrackingMap.toString(false));
+                    System.out.println(playerShotTrackingMap.toString(true));
 
                     // Tell the player they scored a hit.
                     cutscene.playCutscene(Random.getRandomInt(1,10));
@@ -398,7 +399,7 @@ public class Game {
                     // Decrement shots remaining, print the shot result.
                     shotsThisRound--;
                     playerShotTrackingMap.setMapSpace(coordinateLetter, coordinateNumber, 2);
-                    System.out.println(playerShotTrackingMap.toString(false));
+                    System.out.println(playerShotTrackingMap.toString(true));
 
                     // Tell the player they missed.
                     cutscene.playCutscene(Random.getRandomInt(11, 20));
