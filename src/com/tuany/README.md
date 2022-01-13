@@ -22,21 +22,18 @@ This class contains the state and behavior for AI logic and decisions. It is com
 
 Every time the _Game_ class calls its .pollForShots() function, it will return five coordinates and change its state based on the impact of those coordinates on the player.
 
-It uses the following strategy to determine how to change its state and logic when it is polled for shots: 
+It uses the following strategy to determine how to change its state and logic when it is polled for shots:
 
-a) If the AI has no coordinates ‘in memory’, choose a random square and add it to the list of decisions. 
-
-b) If that randomly chosen square was a hit, commit the coordinate to memory and then choose a random direction to fire in for the next shot. 
-
-c) The AI can proceed past c) if it has a shot and direction in memory. 
-
-d) If the direction that was randomly chosen was a miss, add it to the list of decisions and choose the next clockwise cardinal direction. e) Otherwise, if the direction was a hit, commit the direction to memory. 
-
-f) When the AI has a coordinate and direction committed to memory, shoot in that direction relative to the coordinate memory +1 squares further than the last shot (this is what stepOver does). 
-
-g) Upon reaching a miss or a square that was already shot at, try the other direction in the same axis and follow f) if it hasn’t already.
-
-h) Once it is satisfied it has run down the length of an entire ship, it can expunge its memory and restart from a). 
+<ol type="a">
+  <li>If the AI has no coordinates ‘in memory’, choose a random square and add it to the list of decisions.</li>
+  <li>If that randomly chosen square was a hit, commit the coordinate to memory and then choose a random direction to fire in for the next shot.</li>
+  <li>The AI can proceed past c) if it has a shot and direction in memory.</li>
+  <li>If the direction that was randomly chosen was a miss, add it to the list of decisions and choose the next clockwise cardinal direction.</li>
+  <li>Otherwise, if the direction was a hit, commit the direction to memory.</li>
+  <li>When the AI has a coordinate and direction committed to memory, shoot in that direction relative to the coordinate memory +1 squares further than the last shot (this is what stepOver does).</li>
+  <li>Upon reaching a miss or a square that was already shot at, try the other direction in the same axis and follow f) if it hasn’t already.</li>
+  <li>Once it is satisfied it has run down the length of an entire ship, it can expunge its memory and restart from a).</li>
+</ol>
 
 This AI implementation can take down ships that are obviously lined up together (for example, a GALLEON and SCHOONER put together from B1 to B10 will be recognized by the AI). It also attempts to systematically take down the entire ship’s length rather than just a few squares here and there. The AI has access to the player’s map, player ships remaining, and round count thanks to the use of its setters by the _Game_ class. It does not use its omniscience to cheat. 
 
