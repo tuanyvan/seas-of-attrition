@@ -2,10 +2,10 @@ package com.tuany;
 
 import java.util.Scanner;
 
-/** Application Purpose: The main menu of the Seas of Attrition game that sends difficulty and player information to the Game class.
- * Author: Tuany Van
- * Date: October 16th, 2021
- * Time: 12:26 PM
+/**
+ * The main menu of the Seas of Attrition game that sends difficulty and player information to the Game class.
+ * @author Tuany Van
+ * @version 1.0, 10/16/2021
  */
 
 public class Menu {

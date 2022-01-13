@@ -1,9 +1,9 @@
 package com.tuany;
 
-/** Application Purpose: Hosts the Seas of Attrition game and calls start() from the Menu class.
- * Author: Tuany Van
- * Date: October 16th, 2021
- * Time: 11:46 AM
+/**
+ * Hosts the Seas of Attrition game and calls start() from the Menu class.
+ * @author Tuany Van
+ * @version 1.0, 10/16/2021
  */
 
 public class Main {

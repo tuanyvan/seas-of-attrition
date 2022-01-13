@@ -3,10 +3,10 @@ package com.tuany;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-/** Application Purpose: Hosts the Seas of Attrition gameplay (map building, AI actions, player actions, game over sequences).
- * Author: Tuany Van
- * Date: October 17th, 2021
- * Time: 8:23 PM
+/**
+ * Hosts the Seas of Attrition gameplay (map building, AI actions, player actions, game over sequences).
+ * @author Tuany Van
+ * @version 1.0, 10/17/2021
  */
 
 public class Game {

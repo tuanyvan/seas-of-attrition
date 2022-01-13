@@ -1,10 +1,9 @@
 package com.tuany;
 
 /**
- * Application Purpose: Designed to simulate a dramatic printer, which prints the passed string letter by letter in the command line.
- * Author: Tuany Van
- * Date: October 16th, 2021
- * Time: 11:55 AM
+ * Designed to simulate a dramatic printer, which prints the passed string letter by letter in the command line.
+ * @author Tuany Van
+ * @version 1.0, 10/16/2021
  */
 
 public class DramaPrinter {

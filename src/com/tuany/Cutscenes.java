@@ -1,9 +1,9 @@
 package com.tuany;
 
-/** Application Purpose: Hosts drawn-out cutscenes and random event messages which are called in the Game and Menu class.
- * Author: Tuany Van
- * Date: October 17th, 2021
- * Time: 8:23 PM
+/**
+ * Hosts drawn-out cutscenes and random event messages which are called in the Game and Menu class.
+ * @author Tuany Van
+ * @version 1.0, 10/17/2021
  */
 
 public class Cutscenes {

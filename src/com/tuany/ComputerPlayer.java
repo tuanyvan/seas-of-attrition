@@ -2,10 +2,10 @@ package com.tuany;
 
 import java.util.Arrays;
 
-/** Application Purpose: Hosts the state and behavior for the artificial intelligence for Seas of Attrition.
- * Author: Tuany Van
- * Date: October 26th, 2021
- * Time: 8:23 PM
+/**
+ * Hosts the state and behavior for the artificial intelligence for Seas of Attrition.
+ * @author Tuany Van
+ * @version 1.0, 10/26/2021
  */
 
 public class ComputerPlayer {
