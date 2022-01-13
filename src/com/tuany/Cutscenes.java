@@ -84,7 +84,7 @@ public class Cutscenes {
 
 
             // "SHORT-DIFFICULTY": A shortened version of the difficulty options.
-            case "SHORT-DIFFICULTY" -> print.dramaPrint("SELECT A CAMPAIGN TO FIGHT IN:\n[NORMAL]\n2-5 shots with every barrage.\n\n[HARD]\n1-3 shots every barrage.\n\n[REALISTIC]\nWe can only manage up to 3 shots per barrage, and there's a chance we never get to fire a single round at any given hour.\n\n[INSTRUCTIONS] Get instructions on how the game works.");
+            case "SHORT-DIFFICULTY" -> System.out.println("SELECT A CAMPAIGN TO FIGHT IN:\n[NORMAL]\n2-5 shots with every barrage.\n\n[HARD]\n1-3 shots every barrage.\n\n[REALISTIC]\nWe can only manage up to 3 shots per barrage, some barrages no shots.\n\n[INSTRUCTIONS] Get instructions on how the game works.");
             case "INSTRUCTIONS" -> System.out.println("Seas of Attrition is a lot like Battleship, but as you can infer, you are at a disadvantage. After placing your ships on the map, the game will go into turn-based combat.\n\nIn the first phase, you will be firing at the enemy first. You get a random number of shots depending on the difficulty you selected and you fire each shot one by one. After you fire all your shots, the enemy shoots exactly 5 shots back at your ships. This combat phase repeats until:\na) You run out of ships.\nb) The enemy has no more ships remaining.\nc) You have less than three ships or 15 rounds have passed, in which case the AI finishes you off.\n\nThis game is meant to be unfair; you are after all at a strategic disadvantage. Accuracy is of the essence. Develop a stratagem to find the enemy ships. Plead that Fortuna is on your side.");
         }
     }
