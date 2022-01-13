@@ -78,3 +78,5 @@ By moving the behavior into objects that inherit those functions, the complexity
 
 ## Random.java
 This class contains a public static method which is also overloaded. The first method takes an inclusive upper and lower bound, and generates a random integer within that range. The overloaded method takes only an upper bound, and generates a random integer from 0 to the inclusive upper bound.
+
+Having these methods separate from the other classes and with public static modifiers means less duplication of already-written code.
