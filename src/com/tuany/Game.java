@@ -6,7 +6,7 @@ import java.util.Scanner;
 /**
  * Hosts the Seas of Attrition gameplay (map building, AI actions, player actions, game over sequences).
  * @author Tuany Van
- * @version 1.0, 10/17/2021
+ * @version 1.0, 10/17/21
  */
 
 public class Game {
@@ -16,6 +16,7 @@ public class Game {
     private final int MAXIMUM_SHOTS;
     private String captainName;
     private final boolean WILL_PLAY_EXPOSITION;
+    final String GRID_ALPHABET = "ABCDEFGHIJ";
 
     // Declare instance variables that change over the course of the game.
     private int playerShipsRemaining = 18;
@@ -41,189 +42,22 @@ public class Game {
     Cutscenes cutscene = new Cutscenes(captainName);
 
     // Declare private variables depicting the map for both the player and the AI.
-    private int[][] playerMap;
-    private int[][] playerShotTrackingMap;
-    private int[][] computerMap;
-    private final String GRID_ALPHABET = "ABCDEFGHIJ";
+    private Map playerMap;
+    private Map playerShotTrackingMap;
+    private Map computerMap;
 
     // Declare mapCreator, which creates the playerMap, computerMap and playerShotTrackingMap as 2D arrays, and then autofill the computerMap.
     private void mapCreator() {
 
         // Initialize the maps for the player, AI, and player shot tracking map.
-        int xAxisLength = 10;
-        int yAxisLength = 10;
-        playerMap = new int[xAxisLength][yAxisLength];
-        computerMap = new int[xAxisLength][yAxisLength];
-        playerShotTrackingMap = new int[xAxisLength][yAxisLength];
-
-        // Autofill map for AI.
-        /*
-            There will be 4 different ship types for each player.
-            6-LENGTH is the GALLEON.
-            5-LENGTH is the FRIGATE.
-            4-LENGTH is the SCHOONER.
-            3-LENGTH is the CUTTER.
-         */
-        int shipLength = 6;
-        int startingCoordinateX;
-        int startingCoordinateY;
-        int direction;
-        boolean willIntersect;
-
-        while (shipLength >= 3) {
-
-
-            // Choose random starting coordinate.
-            startingCoordinateX = getRandomInt(0, computerMap.length - 1); // Length less 1 to accommodate indexes.
-            startingCoordinateY = getRandomInt(0, computerMap[0].length - 1); // First element is the same length as every other element.
-
-            // Determine a random direction to place the enemy ship.
-            /*
-                0 is up.
-                1 is right.
-                2 is down.
-                3 is left.
-             */
-            direction = getRandomInt(0, 3);
-
-            // Check if direction is a valid placement twice.
-            for (int i = 0; i < 2; i++) {
-                // If direction is invalid, the direction will change accordingly. If not, then the direction does not change at all.
-                switch (direction) {
-                    case 0: // Up
-                        if (startingCoordinateX - shipLength <= 0) { // If going up stretches beyond the map...
-                            direction = 2; // Then go down instead.
-                        }
-                        break;
-                    case 1: // Right
-                        if (startingCoordinateY + shipLength >= computerMap[0].length) { // If going right stretches beyond the map...
-                            direction = 3; // Then go left instead
-                        }
-                        break;
-                    case 2: // Down
-                        if (startingCoordinateX + shipLength >= computerMap.length) { // If going down stretches beyond the map...
-                            direction = 0; // Then go up instead
-                        }
-                        break;
-                    case 3: // Left
-                        if (startingCoordinateY - shipLength <= 0) { // If going left stretches beyond the map...
-                            direction = 1; // Then go right instead
-                        }
-                        break;
-                }
-            }
-            // Check if the placement would result in an intersection, make willIntersect true if so.
-            willIntersect = false;
-            switch (direction) {
-                case 0: // Up
-                    for (int j = 0; j < shipLength; j++) {
-                        if (computerMap[startingCoordinateX - j][startingCoordinateY] == 1) {
-                            willIntersect = true;
-                            break;
-                        }
-                    }
-                    break;
-                case 1: // Right
-                    for (int j = 0; j < shipLength; j++) {
-                        if (computerMap[startingCoordinateX][startingCoordinateY + j] == 1) {
-                            willIntersect = true;
-                            break;
-                        }
-                    }
-                    break;
-                case 2: // Down
-                    for (int j = 0; j < shipLength; j++) {
-                        if (computerMap[startingCoordinateX + j][startingCoordinateY] == 1) {
-                            willIntersect = true;
-                            break;
-                        }
-                    }
-                    break;
-                case 3: // Left
-                    for (int j = 0; j < shipLength; j++) {
-                        if (computerMap[startingCoordinateX][startingCoordinateY - j] == 1) {
-                            willIntersect = true;
-                            break;
-                        }
-                    }
-                    break;
-            }
-
-            // If the placed piece intersects with another piece, restart the loop without making changes to the shipLength.
-            if (willIntersect) {
-                continue;
-            }
-
-            // Now, if every checked condition is ideal, place the ship accordingly.
-            switch (direction) {
-                case 0: // Up
-                    for (int i = 0; i < shipLength; i++) {
-                        computerMap[startingCoordinateX - i][startingCoordinateY] = 1; // 1 indicates a ship is present on the map.
-                    }
-                    break;
-                case 1: // Right
-                    for (int i = 0; i < shipLength; i++) {
-                        computerMap[startingCoordinateX][startingCoordinateY + i] = 1;
-                    }
-                    break;
-                case 2: // Down
-                    for (int i = 0; i < shipLength; i++) {
-                        computerMap[startingCoordinateX + i][startingCoordinateY] = 1;
-                    }
-                    break;
-                case 3: // Left
-                    for (int i = 0; i < shipLength; i++) {
-                        computerMap[startingCoordinateX][startingCoordinateY - i] = 1;
-                    }
-                    break;
-            }
-
-            shipLength--; // Decrement the ship length.
-
-        }
+        playerMap = new Map(10, 10);
+        playerShotTrackingMap = new Map(10, 10);
+        computerMap = new Map(10, 10);
+        computerMap.autofillMap();
 
     }
 
-    // Declare mapPrinter, which prints a visual representation of the player and shot tracking map.
-    private void mapPrinter(boolean printPlayerMap) {
-
-        System.out.println("  12345678910");
-        // If game wants to print the player map...
-        if (printPlayerMap) {
-            for (int i = 0; i < playerMap.length; i++) {
-                System.out.print(GRID_ALPHABET.charAt(i) + " ");
-                for (int j = 0; j < playerMap[i].length; j++) {
-                    if (playerMap[i][j] == 0) {
-                        System.out.print('.');
-                    } else if (playerMap[i][j] == 1) {
-                        System.out.print('S');
-                    } else if (playerMap[i][j] == 2) {
-                        System.out.print('X');
-                    }
-                }
-                System.out.println();
-            }
-        }
-        // Otherwise, print the shot tracking map.
-        else {
-            for (int i = 0; i < playerShotTrackingMap.length; i++) {
-                System.out.print(GRID_ALPHABET.charAt(i) + " ");
-                for (int j =0; j < playerShotTrackingMap[i].length; j++) {
-                    if (playerShotTrackingMap[i][j] == 0) { // No shot taken on this spot...
-                        System.out.print('.');
-                    } else if (playerShotTrackingMap[i][j] == 1) { // Effective hit on this spot.
-                        System.out.print('X');
-                    }
-                    else if (playerShotTrackingMap[i][j] == 2) { // Miss on this spot.
-                        System.out.print('O');
-                    }
-                }
-                System.out.println();
-            }
-        }
-    }
-
-    // Declare private coordinateInput function, which tries to get a coordinate input from the user.
+    // Declare private coordinateInput function, which tries to get a coordinate input for player ship placement/shot firing.
     private int[] coordinateInput(boolean willGetEndingCoordinate) {
 
         // Initialize the return values to -2, a value which will not make any if statement true.
@@ -232,8 +66,8 @@ public class Game {
         int endingCoordinateLetter = -2; // To be converted to a number for indexing.
         int endingCoordinateNumber = -2;
 
-        int maxCoordXIndex = playerMap.length - 1;
-        int maxCoordYIndex = playerMap[0].length - 1;
+        int maxCoordXIndex = playerMap.getMap().length;
+        int maxCoordYIndex = playerMap.getMap()[0].length;
 
         String temporaryLetter = "";
         boolean isInputValid = false;
@@ -261,12 +95,13 @@ public class Game {
                     isLetterValid = true;
 
                 }
+
                 beginningCoordinateLetter = GRID_ALPHABET.indexOf(temporaryLetter);
 
                 // Get beginning coordinate number from user.
                 System.out.print("ENTER BEGINNING COORDINATE NUMBER: ");
                 beginningCoordinateNumber = input.nextInt() - 1;
-                input.nextLine(); // Compensate for nextInt() inability to process \n
+                input.nextLine();
 
                 // If the end coordinate is needed for ship placement...
                 if (willGetEndingCoordinate) {
@@ -290,12 +125,12 @@ public class Game {
                     // Get ending coordinate number from user.
                     System.out.print("ENTER ENDING COORDINATE NUMBER: ");
                     endingCoordinateNumber = input.nextInt() - 1;
-                    input.nextLine(); // Compensate for nextInt() inability to process \n
+                    input.nextLine();
                 }
 
             } catch (InputMismatchException e) {
                 System.out.println("Invalid coordinate input! Format: ROW, COLUMN; A, 1 for top left corner of the map!");
-                input.nextLine(); // Input mismatch happens almost exclusively after a bad input for nextInt();
+                input.nextLine();
                 continue;
             }
 
@@ -336,7 +171,8 @@ public class Game {
         String shipType = ""; // String updated in switch case to show user what ship is expected to be placed.
         int shipLength = 6; // Integer that decrements with every ship placement, dictates what length ship is expected.
 
-        mapPrinter(true);
+        System.out.println(playerMap.toString());
+
         while(shipLength >= 3) {
             // Store the relevant ship type in shipType.
             /*
@@ -417,7 +253,7 @@ public class Game {
                 switch (direction) {
                     case 0: // Up
                         for (int j = 0; j < shipLength; j++) {
-                            if (playerMap[beginningCoordinateLetter - j][beginningCoordinateNumber] == 1) {
+                            if (playerMap.getSpaceAt(beginningCoordinateLetter - j, beginningCoordinateNumber) == 1) {
                                 willIntersect = true;
                                 break;
                             }
@@ -425,7 +261,7 @@ public class Game {
                         break;
                     case 1: // Right
                         for (int j = 0; j < shipLength; j++) {
-                            if (playerMap[beginningCoordinateLetter][beginningCoordinateNumber + j] == 1) {
+                            if (playerMap.getSpaceAt(beginningCoordinateLetter, beginningCoordinateNumber + j) == 1) {
                                 willIntersect = true;
                                 break;
                             }
@@ -433,7 +269,7 @@ public class Game {
                         break;
                     case 2: // Down
                         for (int j = 0; j < shipLength; j++) {
-                            if (playerMap[beginningCoordinateLetter + j][beginningCoordinateNumber] == 1) {
+                            if (playerMap.getSpaceAt(beginningCoordinateLetter + j, beginningCoordinateNumber) == 1) {
                                 willIntersect = true;
                                 break;
                             }
@@ -441,7 +277,7 @@ public class Game {
                         break;
                     case 3: // Left
                         for (int j = 0; j < shipLength; j++) {
-                            if (playerMap[beginningCoordinateLetter][beginningCoordinateNumber - j] == 1) {
+                            if (playerMap.getSpaceAt(beginningCoordinateLetter, beginningCoordinateNumber - j) == 1) {
                                 willIntersect = true;
                                 break;
                             }
@@ -458,22 +294,22 @@ public class Game {
                 switch (direction) {
                     case 0: // Up
                         for (int i = 0; i < shipLength; i++) {
-                            playerMap[beginningCoordinateLetter - i][beginningCoordinateNumber] = 1;
+                            playerMap.setMapSpace(beginningCoordinateLetter - i, beginningCoordinateNumber, 1);
                         }
                         break;
                     case 1: // Right
                         for (int i = 0; i < shipLength; i++) {
-                            playerMap[beginningCoordinateLetter][beginningCoordinateNumber + i] = 1;
+                            playerMap.setMapSpace(beginningCoordinateLetter, beginningCoordinateNumber + i, 1);
                         }
                         break;
                     case 2: // Down
                         for (int i = 0; i < shipLength; i++) {
-                            playerMap[beginningCoordinateLetter + i][beginningCoordinateNumber] = 1;
+                            playerMap.setMapSpace(beginningCoordinateLetter + i, beginningCoordinateNumber, 1);
                         }
                         break;
                     case 3: // Left
                         for (int i = 0; i < shipLength; i++) {
-                            playerMap[beginningCoordinateLetter][beginningCoordinateNumber - i] = 1;
+                            playerMap.setMapSpace(beginningCoordinateLetter, beginningCoordinateNumber - i, 1);
                         }
                         break;
                 }
@@ -481,15 +317,10 @@ public class Game {
                 wasPlacementValid = true; // Everything went well.
 
             } while (!wasPlacementValid);
-            mapPrinter(true);
+            System.out.println(playerMap.toString());
             shipLength--;
         }
 
-    }
-
-    // Declare private function that returns a random number within an inclusive range.
-    private int getRandomInt(int lowerBound, int upperBound) {
-        return (int)(Math.random() * (upperBound + 1 - lowerBound) + lowerBound);
     }
 
     // Declare a private function that begins the game, allows the player and AI to take turns firing at each other.
@@ -498,7 +329,7 @@ public class Game {
         // Start up the Seas of Attrition AI, who will be passed the player map for their shot validation.
         int[][] computerShotCoordinatesArray;
         int computerShotResult;
-        ComputerPlayer ai = new ComputerPlayer(playerMap, playerMap.length - 1, playerMap[0].length - 1, roundCount);
+        ComputerPlayer ai = new ComputerPlayer(playerMap.getMap(), playerMap.length - 1, playerMap[0].length - 1, roundCount);
 
         // Initialize variables for the player attrition system.
         int shotsThisRound; // Shots the player gets for their round.
@@ -514,15 +345,15 @@ public class Game {
         while(playerShipsRemaining > 0 && computerShipsRemaining > 0) {
 
             // Set the number of shots the player can make based on the attrition system.
-            shotsThisRound = getRandomInt(MINIMUM_SHOTS, MAXIMUM_SHOTS);
+            shotsThisRound = Random.getRandomInt(MINIMUM_SHOTS, MAXIMUM_SHOTS);
 
             // Print the map and round number.
             print.dramaPrint("===== HOUR " + roundCount + " =====");
-            mapPrinter(false);
+            System.out.println(playerShotTrackingMap.toString());
 
             // If the player, who is playing on realistic, has no shells to fire this round, let them know.
             if (shotsThisRound == 0) {
-                cutscene.playCutscene(getRandomInt(21, 30));
+                cutscene.playCutscene(Random.getRandomInt(21, 30));
             } else {
                 print.dramaPrint("\"We've stocked up " + shotsThisRound + " cannon balls to fire!\"");
             }
@@ -559,7 +390,7 @@ public class Game {
                     mapPrinter(false);
 
                     // Tell the player they scored a hit.
-                    cutscene.playCutscene(getRandomInt(1,10));
+                    cutscene.playCutscene(Random.getRandomInt(1,10));
                     print.dramaPrint(computerShipsRemaining + " enemy ships remain!");
                 }
                 // Otherwise, if the shot was a miss on the AI Map...
@@ -570,7 +401,7 @@ public class Game {
                     mapPrinter(false);
 
                     // Tell the player they missed.
-                    cutscene.playCutscene(getRandomInt(11, 20));
+                    cutscene.playCutscene(Random.getRandomInt(11, 20));
                 }
                 print.dramaPrint("SHOTS REMAINING: " + shotsThisRound + "}\n");
             }
