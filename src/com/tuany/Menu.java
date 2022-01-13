@@ -122,33 +122,22 @@ public class Menu {
         do {
             userDifficultySelection = input.nextLine().toLowerCase();
             switch (userDifficultySelection) {
-                case "n":
-                case "normal":
-                case "[normal]":
-                    hasMadeValidInput = true;
-                    break;
-                case "h":
-                case "hard":
-                case "[hard]":
+                case "n", "normal", "[normal]" -> hasMadeValidInput = true;
+                case "h", "hard", "[hard]" -> {
                     minimumShots = 1;
                     maximumShots = 3;
                     hasMadeValidInput = true;
-                    break;
-                case "r":
-                case "realistic":
-                case "[realistic]":
+                }
+                case "r", "realistic", "[realistic]" -> {
                     minimumShots = 0;
                     maximumShots = 3;
                     hasMadeValidInput = true;
-                    break;
-                case "i":
-                case "instructions":
-                case "[instructions]":
+                }
+                case "i", "instructions", "[instructions]" -> {
                     cutscenes.playCutscene("INSTRUCTIONS");
                     System.out.print("DIFFICULTY SELECTION: ");
-                    break;
-                default:
-                    System.out.print("You have made an invalid input. To choose a difficulty like normal, input \"n\", \"normal\", or \"[normal]\".\nDIFFICULTY SELECTION: ");
+                }
+                default -> System.out.print("You have made an invalid input. To choose a difficulty like normal, input \"n\", \"normal\", or \"[normal]\".\nDIFFICULTY SELECTION: ");
             }
         } while(!hasMadeValidInput);
 
@@ -157,19 +146,13 @@ public class Menu {
             cutscenes.playCutscene("WASHINGTON-INTRO");
         }
 
-        boolean hasCaptainName = false;
+        // Ask the player for their name.
         String captainName;
         System.out.print("\nYOUR NAME, CAPTAIN: ");
-        do {
-            captainName = input.nextLine().trim();
-            if (!captainName.equals("")) {
-                hasCaptainName = true;
-            }
-            else {
-                captainName = "Nameless";
-                hasCaptainName = true;
-            }
-        } while(!hasCaptainName);
+        captainName = input.nextLine().trim();
+        if (captainName.equals("")) {
+            captainName = "Nameless";
+        }
 
         // Once difficult has been selected and name was chosen, call on the Game class to start the game.
         Game newGame = new Game(minimumShots, maximumShots, captainName, willPlayExposition);

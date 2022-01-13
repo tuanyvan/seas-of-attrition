@@ -47,21 +47,17 @@ public class ComputerPlayer {
 
     // Declare a function that increments the direction given a number.
     private int findNextDirection(int direction) {
-        int nextDirection = direction;
-        switch(direction) {
-            case 0: // Up
-                nextDirection = 1;
-                break;
-            case 1: // Right
-                nextDirection = 2;
-                break;
-            case 2: // Down
-                nextDirection = 3;
-                break;
-            case 3: // Left
-                nextDirection = 0;
-                break;
-        }
+        int nextDirection = switch (direction) {
+            case 0 -> // Up
+                    1;
+            case 1 -> // Right
+                    2;
+            case 2 -> // Down
+                    3;
+            case 3 -> // Left
+                    0;
+            default -> direction;
+        };
         stepOver = 1;
         return nextDirection;
     }
@@ -117,8 +113,8 @@ public class ComputerPlayer {
 
     // If a coordinate shot has already been taken that round, return true.
     private boolean isDuplicateCoordinate(int[][] decision, int[] shotCoordinates) {
-        for(int i = 0; i < decision.length; i++) {
-            if(Arrays.equals(decision[i], shotCoordinates)) {
+        for (int[] ints : decision) {
+            if (Arrays.equals(ints, shotCoordinates)) {
                 return true;
             }
         }
@@ -157,19 +153,15 @@ public class ComputerPlayer {
             // If there is a coordinate and direction in the memory, keep attempting the line of fire in memory.
             if (!Arrays.equals(coordinateMemory, new int[]{-1, -1}) && !(directionMemory == -1)) {
                 // Determine the next coordinate to shoot at based on the coordinateMemory and directionMemory.
-                switch(directionMemory) {
-                    case 0: // Up
-                        shotCoordinates = new int[] { coordinateMemory[0] - stepOver, coordinateMemory[1] };
-                        break;
-                    case 1: // Right
-                        shotCoordinates = new int[] { coordinateMemory[0], coordinateMemory[1] + stepOver };
-                        break;
-                    case 2: // Down
-                        shotCoordinates = new int[] { coordinateMemory[0] + stepOver, coordinateMemory[1] };
-                        break;
-                    case 3: // Left
-                        shotCoordinates = new int[] { coordinateMemory[0], coordinateMemory[1] - stepOver };
-                        break;
+                switch (directionMemory) {
+                    case 0 -> // Up
+                            shotCoordinates = new int[]{coordinateMemory[0] - stepOver, coordinateMemory[1]};
+                    case 1 -> // Right
+                            shotCoordinates = new int[]{coordinateMemory[0], coordinateMemory[1] + stepOver};
+                    case 2 -> // Down
+                            shotCoordinates = new int[]{coordinateMemory[0] + stepOver, coordinateMemory[1]};
+                    case 3 -> // Left
+                            shotCoordinates = new int[]{coordinateMemory[0], coordinateMemory[1] - stepOver};
                 }
                 // If the next coordinate is beyond the boundaries of the game, try a new direction.
                 if(shotCoordinates[0] < 0 || shotCoordinates[0] > MAX_COORD_X || shotCoordinates[1] < 0 || shotCoordinates[1] > MAX_COORD_Y) {

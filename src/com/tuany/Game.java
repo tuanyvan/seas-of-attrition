@@ -347,19 +347,11 @@ public class Game {
                 3-LENGTH is the CUTTER.
             */
 
-            switch(shipLength) {
-                case 6:
-                    shipType = "GALLEON convoy? It will patrol 6 spaces on the map!\"";
-                    break;
-                case 5:
-                    shipType = "FRIGATE convoy? It will patrol 5 spaces on the map!\"";
-                    break;
-                case 4:
-                    shipType = "SCHOONER convoy? It will patrol 4 spaces on the map!\"";
-                    break;
-                case 3:
-                    shipType = "CUTTER convoy? It will patrol 3 spaces on the map!\"";
-                    break;
+            switch (shipLength) {
+                case 6 -> shipType = "GALLEON convoy? It will patrol 6 spaces on the map!\"";
+                case 5 -> shipType = "FRIGATE convoy? It will patrol 5 spaces on the map!\"";
+                case 4 -> shipType = "SCHOONER convoy? It will patrol 4 spaces on the map!\"";
+                case 3 -> shipType = "CUTTER convoy? It will patrol 3 spaces on the map!\"";
             }
 
             print.dramaPrint("\"Captain " + captainName + "! Where shall we place our " + shipType);
@@ -591,14 +583,14 @@ public class Game {
             computerShotCoordinatesArray = ai.pollForShots();
 
             // For every shot the AI takes, mark it as a 2 on the player map (for all 5 shots by the AI).
-            for (int i = 0; i < computerShotCoordinatesArray.length; i++) {
-                computerShotResult = playerMap[computerShotCoordinatesArray[i][0]][computerShotCoordinatesArray[i][1]];
+            for (int[] ints : computerShotCoordinatesArray) {
+                computerShotResult = playerMap[ints[0]][ints[1]];
                 // If the shot was a direct hit (1), then decrement the playerShipsRemaining counter.
                 if (computerShotResult == 1) {
                     playerShipsRemaining--;
                 }
                 // Rewrite the map for the AI to let it know what squares it already shot at (2).
-                playerMap[computerShotCoordinatesArray[i][0]][computerShotCoordinatesArray[i][1]] = 2;
+                playerMap[ints[0]][ints[1]] = 2;
             }
 
             // Update the AI's visualization of the playerMap, tell them how many player ships are left (certain conditions will lead to a mercy kill, where the AI is 100% accurate).
@@ -676,10 +668,10 @@ public class Game {
             difficulty = "REALISTIC";
         }
 
-        Integer computerShipsDown = 18 - computerShipsRemaining;
-        Integer playerShipsDown = 18 - playerShipsRemaining;
-        Double playerAccuracy = (int)(computerShipsDown.doubleValue() / totalShotsMade.doubleValue() * 10_000) / 100.0; // Rounding to two decimal places.
-        Double computerAccuracy = (int)(playerShipsDown.doubleValue() / (roundCount.doubleValue() * 5.0) * 10_000) / 100.0;
+        int computerShipsDown = 18 - computerShipsRemaining;
+        int playerShipsDown = 18 - playerShipsRemaining;
+        double playerAccuracy = (int)((double) computerShipsDown / totalShotsMade.doubleValue() * 10_000) / 100.0; // Rounding to two decimal places.
+        double computerAccuracy = (int)((double) playerShipsDown / (roundCount.doubleValue() * 5.0) * 10_000) / 100.0;
 
         print.dramaPrint("========= PLAYER/AI STATISTICS =========");
         System.out.println("Player Statistics\n_________________");
