@@ -3,7 +3,7 @@ package com.tuany;
 import java.util.Arrays;
 
 /**
- * Hosts the state and behavior for the artificial intelligence for Seas of Attrition.
+ * Hosts the state and behavior for Seas of Attrition's artificial intelligence.
  * @author Tuany Van
  * @version 1.0, 10/26/21
  */

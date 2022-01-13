@@ -1,7 +1,7 @@
 package com.tuany;
 
 /**
- * Contains static functions for random number generation.
+ * Contains public static functions for random number generation.
  * @author Tuany Van
  * @version 1.0, 01/12/22
  */
