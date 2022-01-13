@@ -9,7 +9,7 @@ package com.tuany;
 public class Map {
 
     // Declare instance variables.
-    private int map[][];
+    private final int[][] map;
 
     // 2-arg constructor.
     public Map(int xAxisLength, int yAxisLength) {
@@ -41,6 +41,7 @@ public class Map {
                         mapString.append('O');
                     }
                 }
+                mapString.append('\n');
             }
         }
 
@@ -58,6 +59,7 @@ public class Map {
                         mapString.append('X');
                     }
                 }
+                mapString.append('\n');
             }
         }
 
@@ -100,22 +102,22 @@ public class Map {
                 // If direction is invalid, the direction will change accordingly. If not, then the direction does not change at all.
                 switch (direction) {
                     case 0: // Up
-                        if (startingCoordinateX - shipLength <= 0) { // If going up stretches beyond the map...
+                        if (startingCoordinateX - shipLength < 0) { // If going up stretches beyond the map...
                             direction = 2; // Then go down instead.
                         }
                         break;
                     case 1: // Right
-                        if (startingCoordinateY + shipLength >= this.map[0].length) { // If going right stretches beyond the map...
+                        if (startingCoordinateY + shipLength >= map[0].length) { // If going right stretches beyond the map...
                             direction = 3; // Then go left instead
                         }
                         break;
                     case 2: // Down
-                        if (startingCoordinateX + shipLength >= this.map.length) { // If going down stretches beyond the map...
+                        if (startingCoordinateX + shipLength >= map.length) { // If going down stretches beyond the map...
                             direction = 0; // Then go up instead
                         }
                         break;
                     case 3: // Left
-                        if (startingCoordinateY - shipLength <= 0) { // If going left stretches beyond the map...
+                        if (startingCoordinateY - shipLength < 0) { // If going left stretches beyond the map...
                             direction = 1; // Then go right instead
                         }
                         break;
