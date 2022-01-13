@@ -14,7 +14,7 @@ public class Random {
 
     // Declare an overloaded private function that returns a random number from 0 to an inclusive upper bound.
     public static int getRandomInt(int upperBound) {
-        return (int)(Math.random() * (upperBound + 1) + 0);
+        return (int)(Math.random() * (upperBound + 1));
     }
 
 }
