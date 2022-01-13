@@ -329,7 +329,7 @@ public class Game {
         // Start up the Seas of Attrition AI, who will be passed the player map for their shot validation.
         int[][] computerShotCoordinatesArray;
         int computerShotResult;
-        ComputerPlayer ai = new ComputerPlayer(playerMap.getMap(), playerMap.length - 1, playerMap[0].length - 1, roundCount);
+        ComputerPlayer ai = new ComputerPlayer(playerMap.getMap(), playerMap.getMap().length - 1, playerMap.getMap()[0].length, roundCount);
 
         // Initialize variables for the player attrition system.
         int shotsThisRound; // Shots the player gets for their round.
@@ -377,28 +377,28 @@ public class Game {
                 coordinateNumber = userInputArray[1];
 
                 // If this shot was already taken...
-                if (playerShotTrackingMap[coordinateLetter][coordinateNumber] != 0) {
+                if (playerShotTrackingMap.getSpaceAt(coordinateLetter, coordinateNumber) != 0) {
                     print.dramaPrint("\"WE'VE ALREADY TAKEN A SHOT ON THIS GRID SQUARE! Choose another one Captain " + captainName + "!\"");
                     continue;
                 }
                 // Otherwise, if the shot is a valid hit on the AI Map...
-                else if (computerMap[coordinateLetter][coordinateNumber] == 1) {
+                else if (computerMap.getSpaceAt(coordinateLetter, coordinateNumber) == 1) {
                     // Decrement the number of AI ships and shots remaining, print the shot result.
                     computerShipsRemaining--;
                     shotsThisRound--;
-                    playerShotTrackingMap[coordinateLetter][coordinateNumber] = 1;
-                    mapPrinter(false);
+                    playerShotTrackingMap.setMapSpace(coordinateLetter, coordinateNumber, 1);
+                    System.out.println(playerShotTrackingMap.toString(false));
 
                     // Tell the player they scored a hit.
                     cutscene.playCutscene(Random.getRandomInt(1,10));
                     print.dramaPrint(computerShipsRemaining + " enemy ships remain!");
                 }
                 // Otherwise, if the shot was a miss on the AI Map...
-                else if (computerMap[coordinateLetter][coordinateNumber] == 0) {
+                else if (computerMap.getSpaceAt(coordinateLetter, coordinateNumber) == 0) {
                     // Decrement shots remaining, print the shot result.
                     shotsThisRound--;
-                    playerShotTrackingMap[coordinateLetter][coordinateNumber] = 2;
-                    mapPrinter(false);
+                    playerShotTrackingMap.setMapSpace(coordinateLetter, coordinateNumber, 2);
+                    System.out.println(playerShotTrackingMap.toString(false));
 
                     // Tell the player they missed.
                     cutscene.playCutscene(Random.getRandomInt(11, 20));
@@ -414,29 +414,33 @@ public class Game {
             computerShotCoordinatesArray = ai.pollForShots();
 
             // For every shot the AI takes, mark it as a 2 on the player map (for all 5 shots by the AI).
-            for (int[] ints : computerShotCoordinatesArray) {
-                computerShotResult = playerMap[ints[0]][ints[1]];
+            for (int[] shot : computerShotCoordinatesArray) {
+                computerShotResult = playerMap.getMap()[shot[0]][shot[1]];
                 // If the shot was a direct hit (1), then decrement the playerShipsRemaining counter.
                 if (computerShotResult == 1) {
                     playerShipsRemaining--;
                 }
                 // Rewrite the map for the AI to let it know what squares it already shot at (2).
-                playerMap[ints[0]][ints[1]] = 2;
+                playerMap.setMapSpace(shot[0], shot[1], 2);
             }
 
             // Update the AI's visualization of the playerMap, tell them how many player ships are left (certain conditions will lead to a mercy kill, where the AI is 100% accurate).
-            ai.setPlayerMap(playerMap);
+            ai.setPlayerMap(playerMap.getMap());
             ai.setPlayerShipsRemaining(playerShipsRemaining);
             ai.setRoundCount(roundCount);
 
             // Show the player what shots the AI took against the player.
-            mapPrinter(true);
+            System.out.println(playerMap.toString(false));
 
-            for (int i = 0; i < computerShotCoordinatesArray.length; i++) { // For every shot the AI took...
+            // For every shot the AI took...
+            for (int i = 0; i < computerShotCoordinatesArray.length; i++) {
+
                 // Print the letter the AI's X coordinate targeted.
                 System.out.print(GRID_ALPHABET.charAt(computerShotCoordinatesArray[i][0]));
+
                 // Print the number the AI's Y coordinate targeted.
                 System.out.print(computerShotCoordinatesArray[i][1] + 1);
+
                 // If the element is not the last one in the list, then append a comma.
                 if (!(i + 1 == computerShotCoordinatesArray.length)) {
                     System.out.print(", ");
@@ -453,7 +457,7 @@ public class Game {
                 print.dramaPrint("\"None of our ships were hit! We're safe for now, Captain.\"");
             }
 
-            // Reprimand the player for having bad luck or a predictable ship setup if the British were able to make a 100% accurate barrage.
+            // Reprimand the player for terrible luck or a predictable ship setup if the British were able to make a 100% accurate barrage.
             if (oldShipsRemaining - playerShipsRemaining == 5) {
                 print.dramaPrint("\"Damn it, Captain! That British barrage was 100% on target! Our ships are not spaced out enough, do you realize how many lives we lost because of your strategic failure?!\"");
             }
@@ -515,8 +519,7 @@ public class Game {
         System.out.println("Shots Lost To Attrition:   " + shotsLostToAttrition);
         System.out.println("Accuracy:                  " + playerAccuracy + "%");
         System.out.println("\nPLAYER MAP\n__________");
-        mapPrinter(true);
-        System.out.println();
+        System.out.println(playerMap.toString(false));
 
         System.out.println("\nAI Statistics\n_____________");
         System.out.println("Total Shots Made:        " + (roundCount * 5)); // Since AI takes fives shots every round.
@@ -525,20 +528,7 @@ public class Game {
         System.out.println("Accuracy:                " + computerAccuracy + "%");
         System.out.println("\nAI MAP\n______\n");
 
-        System.out.println("  12345678910");
-        for (int i = 0; i < computerMap.length; i++) {
-            System.out.print(GRID_ALPHABET.charAt(i) + " ");
-            for (int j = 0; j < computerMap[i].length; j++) {
-                if (computerMap[i][j] == 0) {
-                    System.out.print('.');
-                } else if (computerMap[i][j] == 1) {
-                    System.out.print('A');
-                } else if (computerMap[i][j] == 2) {
-                    System.out.print('X');
-                }
-            }
-            System.out.println();
-        }
+        System.out.println(computerMap.toString(false));
         System.out.println("========================================\n\n");
     }
 
