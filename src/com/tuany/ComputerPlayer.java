@@ -40,11 +40,6 @@ public class ComputerPlayer {
         directionsAttempted = new boolean[] { false, false, false, false };
     }
 
-    // Declare a function that returns a random number to an inclusive upper bound.
-    private int getRandomInt(int upperBound) {
-        return (int)(Math.random() * (upperBound + 1) + 0);
-    }
-
     // Declare a function that increments the direction given a number.
     private int findNextDirection(int direction) {
         int nextDirection = switch (direction) {
@@ -245,8 +240,8 @@ public class ComputerPlayer {
 
             // Otherwise, determine a random coordinate to shoot at if there is no coordinate or direction memory.
             else {
-                int randomX = getRandomInt(MAX_COORD_X);
-                int randomY = getRandomInt(MAX_COORD_Y);
+                int randomX = Random.getRandomInt(MAX_COORD_X);
+                int randomY = Random.getRandomInt(MAX_COORD_Y);
                 shotCoordinates = new int[] {randomX, randomY};
                 shotResult = playerMap[randomX][randomY];
                 // If the coordinate does not have a ship (0), then put that coordinate in the decision but do not keep it in memory.
@@ -275,7 +270,7 @@ public class ComputerPlayer {
                     coordinateMemory = new int[] {randomX, randomY};
                     stepOver++;
                     // Choose a random direction to fire a line, make that entry in directionsAttempted true.
-                    directionMemory = getRandomInt(3);
+                    directionMemory = Random.getRandomInt(3);
                     directionsAttempted[directionMemory] = true;
                 }
                 // Otherwise, if the randomly chosen coordinate was already fired upon (2), then do nothing, which continues the loop.
