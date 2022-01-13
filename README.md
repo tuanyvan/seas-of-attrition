@@ -1,5 +1,5 @@
 # Seas of Attrition
-Seas of Attrition is a CLI game programmed in Java. It was made as a final project for COMP1030G - Programming Fundamental, which enforced the use of various OOP concepts such as encapsulation, inheritance, and abstraction. Fundamental programming concepts such as do while loops, wrapper classes, explicit exception handling, static methods, and multi-dimensional array operations.
+Seas of Attrition is a CLI game programmed in Java. It was made as a final project for COMP1030G - Programming Fundamentals, which enforced the use of various OOP concepts such as encapsulation, inheritance, and abstraction. Fundamental programming concepts such as do while loops, wrapper classes, explicit exception handling, static methods, and multi-dimensional array operations.
 
 This project was developed since October 16th, 2021 and completed on November 22nd, 2021. On January 12th, 2022, additional amendments to the project were created to enforce OOP.
 
