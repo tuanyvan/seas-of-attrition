@@ -32,8 +32,8 @@ public class ComputerPlayer {
     /**
      * 4-param constructor, which takes the player map, its maximum index dimensions, and round count for shot validation.
      * @param playerMap A two-dimensional array containing the integers 0, 1, and 2 to indicate ship statuses.
-     * @param MAX_COORD_X The maximum number of indexes on the X dimension.
-     * @param MAX_COORD_Y The maximum number of indexes on the Y dimension.
+     * @param MAX_COORD_X The maximum number of indexes on the player map's X dimension.
+     * @param MAX_COORD_Y The maximum number of indexes on the player map's Y dimension.
      * @param roundCount The number of gameplay rounds that have passed.
      */
     public ComputerPlayer(int[][] playerMap, int MAX_COORD_X, int MAX_COORD_Y, int roundCount) {
@@ -48,7 +48,7 @@ public class ComputerPlayer {
 
     /**
      * Used to change the shot direction to the next direction clockwise.
-     * @param direction The direction to be incremented to the next appropriate direction integer.
+     * @param direction An integer, the direction to be incremented to the next appropriate direction integer.
      * @return An integer representing the next direction integer clockwise.
      */
     private int findNextDirection(int direction) {
@@ -307,7 +307,7 @@ public class ComputerPlayer {
 
     /**
      * Setter for the number of player ships remaining.
-     * @param playerShipsRemaining The number of player ships remaining in the game.
+     * @param playerShipsRemaining The integer number of player ships remaining in the game.
      */
     public void setPlayerShipsRemaining(int playerShipsRemaining) {
         this.playerShipsRemaining = playerShipsRemaining;
@@ -315,7 +315,7 @@ public class ComputerPlayer {
 
     /**
      * Setter for the number of rounds passed in-game.
-     * @param roundCount The number of rounds passed in-game.
+     * @param roundCount The integer number of rounds passed in-game.
      */
     public void setRoundCount(int roundCount) {
         this.roundCount = roundCount;

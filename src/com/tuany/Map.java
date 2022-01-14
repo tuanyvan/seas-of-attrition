@@ -11,17 +11,33 @@ public class Map {
     // Declare instance variables.
     private final int[][] map;
 
-    // 2-arg constructor.
+    /**
+     * 2-param constructor that creates a two-dimensional array for the "map" state.
+     * @param xAxisLength The X-dimension length of the map.
+     * @param yAxisLength The Y-dimension length of the map.
+     */
     public Map(int xAxisLength, int yAxisLength) {
         this.map = new int[xAxisLength][yAxisLength];
     }
 
     // Declare a function to get ship at given coordinate.
+
+    /**
+     * Takes an XY coordinate and finds map's value at the coordinate.
+     * @param x The coordinate in the X dimension.
+     * @param y The coordinate in the Y dimension.
+     * @return The integer value at the given coordinates.
+     */
     public int getSpaceAt(int x, int y) {
         return map[x][y];
     }
 
     // Declare a function to get the map as a string.
+    /**
+     * Iterates over the "map" instance variable to create a coordinate-system representation as a StringBuilder.
+     * @param isShotTrackingMap A boolean determining whether to create the mapString with ".XO" characters.
+     * @return A printable StringBuilder object representing the "map" instance variable.
+     */
     public StringBuilder toString(boolean isShotTrackingMap) {
 
         final String GRID_ALPHABET = "ABCDEFGHIJ";
@@ -67,7 +83,9 @@ public class Map {
 
     }
 
-    // Declare a function that autofills the map for the AI.
+    /**
+     * Autofills the "map" instance variable, written and called exclusively for the AI.
+     */
     public void autofillMap() {
         /*
             There will be 4 different ship types for each player.
@@ -195,12 +213,21 @@ public class Map {
         }
     }
 
-    // Setter
+    // Setters
+    /**
+     * Sets the "map" XY coordinate to a specified value.
+     * @param x The coordinate in the X dimension.
+     * @param y The coordinate in the Y dimension.
+     * @param value The value that the coordinate should be changed to.
+     */
     public void setMapSpace(int x, int y, int value) {
         map[x][y] = value;
     }
 
-    // Getter
+    // Getters
+    /**
+     * @return A two-dimensional array from the "map" isntance variable.
+     */
     public int[][] getMap() {
         return map;
     }

@@ -12,14 +12,25 @@ public class DramaPrinter {
     private int delay;
 
     // Single parameter constructor.
+
+    /**
+     * 1-param constructor that takes an initial delay specification.
+     * @param delay An integer value representing the milliseconds between each character.
+     */
     public DramaPrinter(int delay) { this.delay = delay; }
 
-    // Setters
+    /**
+     * Setter to change the delay, used especially when changing between dialogue and narrative prose.
+     * @param delay An integer value representing the milliseconds between each character.
+     */
     public void setDelay(int delay) {
         this.delay = delay;
     }
 
-    // Private delay function for brevity.
+    /**
+     * Private delay function made for brevity.
+     * @param multiplier A double-type factor which the current delay should be applied.
+     */
     private void delayText(double multiplier) {
         // Try to set a delay using Thread.sleep()
         try {
@@ -30,7 +41,10 @@ public class DramaPrinter {
         }
     }
 
-    // Declare function dramaPrint, prints a String letter by letter.
+    /**
+     * Uses the delayText() function to print the String argument letter by letter.
+     * @param txt The string to print out letter by letter.
+     */
     public void dramaPrint(String txt) {
 
         String[] characters = txt.split("");

@@ -27,7 +27,13 @@ public class Game {
     private Integer totalShotsMade = 0;
     private int shotsLostToAttrition = 0;
 
-    // Constructor requiring instance variables for the user.
+    /**
+     * 4-param constructor which takes variables essential for game logic.
+     * @param MINIMUM_SHOTS An integer representing the minimum number of shots the player can get.
+     * @param MAXIMUM_SHOTS An integer representing the maximum number of shots the player can get.
+     * @param captainName A string representing the captain/player's name.
+     * @param WILL_PLAY_EXPOSITION A boolean constant that determines whether further exposition will be played.
+     */
     public Game(int MINIMUM_SHOTS, int MAXIMUM_SHOTS, String captainName, boolean WILL_PLAY_EXPOSITION) {
         this.MINIMUM_SHOTS = MINIMUM_SHOTS;
         this.MAXIMUM_SHOTS = MAXIMUM_SHOTS;
@@ -533,7 +539,9 @@ public class Game {
         System.out.println("========================================\n\n");
     }
 
-    // Declare a public function called start(). This method will begin the actual gameplay.
+    /**
+     * When called, uses the private functions within Game.java to start the gameplay.
+     */
     public void start() {
 
         // Play the quartermaster introduction if the user wanted exposition.

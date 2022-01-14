@@ -7,12 +7,22 @@ package com.tuany;
  */
 
 public class Random {
-    // Declare private function that returns a random number within an inclusive range.
+
+    /**
+     * Returns a random number based on a lower and upper bound.
+     * @param lowerBound The inclusive minimum boundary which a randomized number can reach.
+     * @param upperBound The inclusive maximum boundary which a randomized number can reach.
+     * @return A random integer from the lowerBound to the upperBound inclusively.
+     */
     public static int getRandomInt(int lowerBound, int upperBound) {
         return (int)(Math.random() * (upperBound + 1 - lowerBound) + lowerBound);
     }
 
-    // Declare an overloaded private function that returns a random number from 0 to an inclusive upper bound.
+    /**
+     * Returns a random number simply based on an upper bound.
+     * @param upperBound The inclusive maximum boundary which a randomized number can reach.
+     * @return A random integer from 0 to the upperBound inclusively.
+     */
     public static int getRandomInt(int upperBound) {
         return (int)(Math.random() * (upperBound + 1));
     }

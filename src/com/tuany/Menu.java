@@ -95,7 +95,9 @@ public class Menu {
 
     }
 
-    // Declare the start() function, which is called by Main.java to start the game.
+    /**
+     * Called by Main.java to start the game.
+     */
     public static void start() {
 
         // Instantiate the object necessary for the Menu start() function.

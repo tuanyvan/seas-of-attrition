@@ -29,11 +29,9 @@ public class Cutscenes {
     // Instantiate a new DramaPrinter.
     DramaPrinter print = new DramaPrinter(20); // Default narrator speed.
 
-    // Declare function playCutScene, which takes a String to play a drawn-out cutscene.
-
     /**
      * Mainly used to play drawn-out cutscenes with the DramaPrinter class.
-     * @param cutScene A string name of the cutscene of to be played.
+     * @param cutScene A string representing the name of a cutscene of to be played.
      */
     public void playCutscene(String cutScene) {
         switch (cutScene) {
@@ -100,7 +98,10 @@ public class Cutscenes {
         }
     }
 
-    // Declare function playCutscene, which takes an integer to play a random event message, separated from the String-arg function to prevent tripping any drawn-out cutscenes. This function works well when a randomized integer is passed as an argument.
+    /**
+     * Used to play random event messages. Separated from the String-param function to prevent tripping any drawn-out cutscenes.
+     * @param cutScene A randomized integer which is made in the appropriate range of the random event messages.
+     */
     public void playCutscene(int cutScene) {
         print.setDelay(30);
         switch (cutScene) {
@@ -142,7 +143,10 @@ public class Cutscenes {
         }
     }
 
-    // captainName setter.
+    /**
+     * Setter for the captainName should the player specify a name.
+     * @param captainName A string representing the captain/player's name.
+     */
     public void setCaptainName(String captainName) {
         this.captainName = captainName;
     }
