@@ -3,7 +3,9 @@ package com.tuany;
 /**
  * Contains state and behavior for player/AI gameplay maps.
  * @author Tuany Van
- * @version 1.0, 01/12/22
+ * @version 1.1
+ * @created 01/12/22
+ * @modified 01/14/22
  */
 
 public class Map {

@@ -3,7 +3,9 @@ package com.tuany;
 /**
  * Hosts drawn-out cutscenes and random event messages which are called in the Game and Menu class.
  * @author Tuany Van
- * @version 1.0, 10/17/21
+ * @version 1.1
+ * @created 10/17/21
+ * @modified 01/14/22
  */
 
 public class Cutscenes {

@@ -5,7 +5,9 @@ import java.util.Scanner;
 /**
  * The main menu of the Seas of Attrition game that sends difficulty and player information to the Game class.
  * @author Tuany Van
- * @version 1.0, 10/16/21
+ * @version 1.1
+ * @created 10/16/21
+ * @modified 01/14/22
  */
 
 public class Menu {
