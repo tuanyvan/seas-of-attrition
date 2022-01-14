@@ -5,9 +5,7 @@ import java.util.Arrays;
 /**
  * Hosts the state and behavior for Seas of Attrition's artificial intelligence.
  * @author Tuany Van
- * @version 1.1
- * @created 10/26/21
- * @modified 01/14/22
+ * @version 1.1, 10/26/21
  */
 
 public class ComputerPlayer {
@@ -31,7 +29,13 @@ public class ComputerPlayer {
     private int playerShipsRemaining = 18; // 6 + 5 + 4 + 3 as per the rules of the game.
     private int roundCount;
 
-    // Declare the 4-arg constructor, which takes the player map, its index dimensions, and round count for shot validation.
+    /**
+     * 4-param constructor, which takes the player map, its maximum index dimensions, and round count for shot validation.
+     * @param playerMap A two-dimensional array containing the integers 0, 1, and 2 to indicate ship statuses.
+     * @param MAX_COORD_X The maximum number of indexes on the X dimension.
+     * @param MAX_COORD_Y The maximum number of indexes on the Y dimension.
+     * @param roundCount The number of gameplay rounds that have passed.
+     */
     public ComputerPlayer(int[][] playerMap, int MAX_COORD_X, int MAX_COORD_Y, int roundCount) {
         this.playerMap = playerMap;
         this.MAX_COORD_X = MAX_COORD_X;
@@ -42,7 +46,11 @@ public class ComputerPlayer {
         directionsAttempted = new boolean[] { false, false, false, false };
     }
 
-    // Declare a function that increments the direction given a number.
+    /**
+     * Used to change the shot direction to the next direction clockwise.
+     * @param direction The direction to be incremented to the next appropriate direction integer.
+     * @return An integer representing the next direction integer clockwise.
+     */
     private int findNextDirection(int direction) {
         int nextDirection = switch (direction) {
             case 0 -> // Up
@@ -59,7 +67,7 @@ public class ComputerPlayer {
         return nextDirection;
     }
 
-    // Declare a function that finds the direction opposite the current direction of travel and sets the directionMemory to the other axis, then resets the stepOver to 1.
+    /** Finds the direction opposite the current direction of travel and sets the directionMemory to the other axis, then resets the stepOver to 1. */
     private void findDirectionOppositeCurrentAxis() {
         hasTriedOtherAxis = true;
         switch (directionMemory) {
@@ -98,7 +106,9 @@ public class ComputerPlayer {
         }
     }
 
-    // Declare a function that makes every AI logic value to its default value (-1, 0, and false where applicable).
+    /**
+     * Sets every AI logic value to its default value (-1, 0, and false where applicable)
+     */
     private void expungeMemory() {
         coordinateMemory = new int[] {-1, -1};
         directionMemory = -1;
@@ -108,7 +118,12 @@ public class ComputerPlayer {
         stepOver = 0;
     }
 
-    // If a coordinate shot has already been taken that round, return true.
+    /**
+     * Returns a boolean on whether a coordinate shot was already taken.
+     * @param decision Two-dimensional array containing the decisions the AI has already made.
+     * @param shotCoordinates The X and Y coordinates of the shot the AI wants to take.
+     * @return A boolean which is true if the shot duplicates a coordinate already made.
+     */
     private boolean isDuplicateCoordinate(int[][] decision, int[] shotCoordinates) {
         for (int[] ints : decision) {
             if (Arrays.equals(ints, shotCoordinates)) {
@@ -118,7 +133,10 @@ public class ComputerPlayer {
         return false;
     }
 
-    // Declare function that polls the AI for their 5 shots.
+    /**
+     * Requests the AI for its 5 shot predictions based on its memory and map feedback.
+     * @return A two-dimensional array, where each element contains an X and Y coordinate.
+     */
     public int[][] pollForShots() {
 
         int[][] decision = new int[5][2];
@@ -279,15 +297,26 @@ public class ComputerPlayer {
         return decision;
     }
 
-    // Setter for instance variables important to AI logic, decisions, and endgame condition.
+    /**
+     * Setter for instance variables important to AI logic, decisions, and endgame condition.
+     * @param playerMap A two-dimensional array containing the integers 0, 1, and 2 to indicate ship statuses.
+     */
     public void setPlayerMap(int[][] playerMap) {
         this.playerMap = playerMap;
     }
 
+    /**
+     * Setter for the number of player ships remaining.
+     * @param playerShipsRemaining The number of player ships remaining in the game.
+     */
     public void setPlayerShipsRemaining(int playerShipsRemaining) {
         this.playerShipsRemaining = playerShipsRemaining;
     }
 
+    /**
+     * Setter for the number of rounds passed in-game.
+     * @param roundCount The number of rounds passed in-game.
+     */
     public void setRoundCount(int roundCount) {
         this.roundCount = roundCount;
     }

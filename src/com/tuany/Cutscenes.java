@@ -3,9 +3,7 @@ package com.tuany;
 /**
  * Hosts drawn-out cutscenes and random event messages which are called in the Game and Menu class.
  * @author Tuany Van
- * @version 1.1
- * @created 10/17/21
- * @modified 01/14/22
+ * @version 1.1, 10/17/21
  */
 
 public class Cutscenes {
@@ -13,12 +11,17 @@ public class Cutscenes {
     // A single instance variable, containing the captain's name for personalization.
     private String captainName;
 
-    // 1-parameter constructor.
+    /**
+     * 1-param constructor when the captainName is known.
+     * @param captainName The captain/player's name as chosen in Menu.java.
+     */
     public Cutscenes(String captainName) {
         this.captainName = captainName;
     }
 
-    // Default constructor when the captainName is not known yet.
+    /**
+     * Default constructor when the captainName is not known yet.
+     */
     public Cutscenes() {
         this.captainName = ""; // Placeholder name, will never be used if Cutscenes is instantiated with the default constructor.
     }
@@ -27,6 +30,11 @@ public class Cutscenes {
     DramaPrinter print = new DramaPrinter(20); // Default narrator speed.
 
     // Declare function playCutScene, which takes a String to play a drawn-out cutscene.
+
+    /**
+     * Mainly used to play drawn-out cutscenes with the DramaPrinter class.
+     * @param cutScene A string name of the cutscene of to be played.
+     */
     public void playCutscene(String cutScene) {
         switch (cutScene) {
 

@@ -6,9 +6,7 @@ import java.util.Scanner;
 /**
  * Hosts the Seas of Attrition gameplay (map building, AI actions, player actions, game over sequences).
  * @author Tuany Van
- * @version 1.1
- * @created 10/17/21
- * @modified 01/14/22
+ * @version 1.1, 10/17/21
  */
 
 public class Game {

@@ -3,9 +3,7 @@ package com.tuany;
 /**
  * Contains public static functions for random number generation.
  * @author Tuany Van
- * @version 1.1
- * @created 01/12/22
- * @modified 01/14/22
+ * @version 1.1, 01/12/22
  */
 
 public class Random {

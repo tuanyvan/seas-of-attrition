@@ -3,9 +3,7 @@ package com.tuany;
 /**
  * Hosts the Seas of Attrition game and calls start() from the Menu class.
  * @author Tuany Van
- * @version 1.1
- * @created 10/16/21
- * @modified 01/14/22
+ * @version 1.1, 10/16/21
  */
 
 public class Main {

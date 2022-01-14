@@ -3,9 +3,7 @@ package com.tuany;
 /**
  * Designed to simulate a dramatic printer, which prints the passed string letter by letter in the command line.
  * @author Tuany Van
- * @version 1.1
- * @created 10/16/21
- * @modified 01/14/22
+ * @version 1.1, 10/16/21
  */
 
 public class DramaPrinter {
