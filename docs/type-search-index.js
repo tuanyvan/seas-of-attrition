@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"com.tuany","l":"ComputerPlayer"},{"p":"com.tuany","l":"Cutscenes"},{"p":"com.tuany","l":"DramaPrinter"},{"p":"com.tuany","l":"Game"},{"p":"com.tuany","l":"Main"},{"p":"com.tuany","l":"Map"},{"p":"com.tuany","l":"Menu"},{"p":"com.tuany","l":"Random"}];updateSearchResults();
